@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PROYECTO-3 IPC2</title>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'script/script.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li class="section">
+                Consulta
+                <ul class="submenu">
+                    <li id="consultar_hashtag"><a><i class="fas fa-search"></i>Consulta Hashtag</a></li>
+                    <li id="consultar_menciones"><a><i class="fas fa-search"></i> Consulta Menciones</a></li>
+                    <li id="consultar_sentimiento"><a><i class="fas fa-search"></i> Consulta Sentimientos</a></li>
+                </ul>
+            </li>
+            <li class="section">
+                Gráfica
+                <ul class="submenu">
+                    <li id="grafica_hashtag"><a><i class="fas fa-chart-bar"></i> Gráfica Hashtag</a></li>
+                    <li id="grafica_menciones"><a><i class="fas fa-chart-bar"></i> Gráfica Menciones</a></li>
+                    <li id="grafica_sentimiento"><a><i class="fas fa-chart-bar"></i> Gráfica Sentimientos</a></li>
+                </ul>
+            </li>
+            <li class="section">
+                Reportes
+                <ul class="submenu">
+                    <li><a><i class="fas fa-file-alt"></i> Reporte 1</a></li>
+                    <li><a><i class="fas fa-file-alt"></i> Reporte 2</a></li>
+                </ul>
+            </li>
+            <li class="section">
+                Ayuda
+                <ul class="submenu">
+                    <li><a><i class="fas fa-book"></i> Documentación</a></li>
+                    <li><a><i class="fas fa-info"></i> Info Persona</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar">
+        <form method="POST" id="myfrom" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="sidebar-section">
+                <h2>Cargar Mensaje</h2>
+                <input type="file" id="file-input-mensaje" accept=".xml">
+                <button type="button" id="cargar_archivo_mensaje">Enviar Archivo Mensaje</button>
+            </div>
+            <div class="sidebar-section">
+                <h2>Cargar Configuraciones</h2>
+                <input type="file" id="file-input-config" name="file" accept=".xml">
+                <button type="button" id="cargar_archivo_config">Enviar Archivo Configuraciones</button>
+            </div>
+        </form>
+    </div>
+    <div class="content">
+        <div class="project">
+            <h1>Tecnologías Chapinas, S.A</h2>
+            <textarea id="mensajeTexto" placeholder="Los Resultados Se Mostrarán Aquí…"></textarea>
+        </div>
+    </div>
+</body>
+</html>

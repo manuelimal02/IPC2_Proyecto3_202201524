@@ -1,17 +1,14 @@
 from Mensaje.Fecha_Mensaje import Fecha_Mensaje
 from Mensaje.Contenido_Mensaje import Contenido_Mensaje
+import xml.etree.ElementTree as ET
 import os
 
 def contador_variable(lista):
-    # Crea un diccionario vacío para realizar el seguimiento de las cuentas de hashtag
     contador = {}
-    # Recorre la lista de hashtags
     for variable in lista:
-        # Si el hashtag ya está en el diccionario, incrementa su cuenta en 1
         if variable in contador:
             contador[variable] += 1
         else:
-            # Si el hashtag no está en el diccionario, agrégalo con una cuenta de 1
             contador[variable] = 1
     return contador
 
@@ -45,7 +42,7 @@ class MensajeDAO:
     
     def consultar_hashtag(self):
         if len(self.lista_mensaje_fecha)==0:
-            return "No Existen Archivos De Mensaje Procesados."
+            return "Consulta Hashtag: No existen archivos de mensaje procesados."
         lista_hashtag=[]
         respuesta=""
         for fecha in self.lista_mensaje_fecha:
@@ -62,9 +59,9 @@ class MensajeDAO:
     
     def grafica_consular_hashtag(self):
         if len(self.lista_mensaje_fecha)==0:
-            return "No Existen Archivos De Mensaje Procesados."
+            return "Gráfica Hashtag: No existen archivos de mensaje procesados."
         lista_hashtag=[]
-        nombre_archivo = "Grafica_Hasthtag"
+        nombre_archivo = "Graficas/Grafica_Hasthtag"
         f = open(nombre_archivo+'.dot','w')
         texto_g = """
             graph "" {bgcolor="#f2f2f2" gradientangle=90 label="Grafica Hashtag"
@@ -96,11 +93,11 @@ class MensajeDAO:
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
         os.system(f'dot -Tpdf {nombre_archivo}.dot -o {nombre_archivo}.pdf')
-        return "Grafica Hashtag Generada Correctamente"
+        return "Gráfica Hashtag Generada Correctamente."
 
     def consultar_menciones(self):
         if len(self.lista_mensaje_fecha)==0:
-            return "No Existen Archivos De Mensaje Procesados."
+            return "Consulta Menciones: No existen archivos de mensaje procesados."
         lista_usuario=[]
         respuesta=""
         for fecha in self.lista_mensaje_fecha:
@@ -117,9 +114,9 @@ class MensajeDAO:
 
     def grafica_consular_menciones(self):
         if len(self.lista_mensaje_fecha)==0:
-            return "No Existen Archivos De Mensaje Procesados."
+            return "Gráfica Menciones: No existen archivos de mensaje procesados."
         lista_usuario=[]
-        nombre_archivo = "Grafica_Menciones"
+        nombre_archivo = "Graficas/Grafica_Menciones"
         f = open(nombre_archivo+'.dot','w')
         texto_g = """
             graph "" {bgcolor="#f2f2f2" gradientangle=90 label="Grafica Menciones"
@@ -151,4 +148,32 @@ class MensajeDAO:
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
         os.system(f'dot -Tpdf {nombre_archivo}.dot -o {nombre_archivo}.pdf')
-        return "Grafica Menciones Generada Correctamente"
+        return "Gráfica Menciones Generada Correctamente."
+    
+    def base_datos_mensaje(self):
+        mensajes_generales = ET.Element("Base-Datos-Mensaje")
+        for fecha in self.lista_mensaje_fecha:
+            mensaje = ET.SubElement(mensajes_generales, "Mensaje")
+            fecha_ms = ET.SubElement(mensaje, "Fecha")
+            fecha_ms.text = fecha.fecha
+            for mensaje_fecha in fecha.lista_mensaje:
+                texto_ms = ET.SubElement(mensaje, "Texto")
+                texto_ms.text = mensaje_fecha.texto_mensaje
+        datos=ET.tostring(mensajes_generales)
+        datos=str(datos)
+        self.xml_identado(mensajes_generales)
+        arbol_xml=ET.ElementTree(mensajes_generales)
+        arbol_xml.write("BBDD/Base-Datos-Mensaje.xml",encoding="UTF-8",xml_declaration=True)
+
+    def xml_identado(self, element, indent='  '):
+        queue = [(0, element)]
+        while queue:
+            level, element = queue.pop(0)
+            children = [(level + 1, child) for child in list(element)]
+            if children:
+                element.text = '\n' + indent * (level + 1)
+            if queue:
+                element.tail = '\n' + indent * queue[0][0]
+            else:
+                element.tail = '\n' + indent * (level - 1)
+            queue[0:0] = children
