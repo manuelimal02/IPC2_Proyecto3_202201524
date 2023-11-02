@@ -67,7 +67,9 @@ body {
 .fa-search,
 .fa-chart-bar,
 .fa-file-alt,
-.fa-book, 
+.fa-book,
+.fa-repeat,
+.fa-redo, 
 .fa-info{
     margin-right: 10px;
 }

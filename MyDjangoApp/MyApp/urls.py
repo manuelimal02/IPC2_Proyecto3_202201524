@@ -10,5 +10,7 @@ urlpatterns=[
     path('graficaMenciones/',views.grafica_menciones, name='graficaMenciones'),
     path('graficaSentimiento/',views.grafica_sentimiento, name='graficaSentimiento'),
     path('resumenMensajes/',views.resumen_mensajes, name='resumenMensajes'),
-    path('resumenConfiguraciones/',views.resumen_configuraciones, name='resumenConfiguraciones')
+    path('resumenConfiguraciones/',views.resumen_configuraciones, name='resumenConfiguraciones'),
+    path('informacionEstudiante/',views.informacion_estudiante, name='informacionEstudiante'),
+    path('resetarDatos/',views.resetear_datos, name='resetarDatos')
 ]

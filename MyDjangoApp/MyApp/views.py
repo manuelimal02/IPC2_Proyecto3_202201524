@@ -76,3 +76,21 @@ def resumen_configuraciones(request):
         return JsonResponse(response_data)
     except requests.exceptions.RequestException as e:
         return HttpResponse(str(e), status=500)
+    
+def informacion_estudiante(request):
+    try:
+        response = requests.get('http://127.0.0.1:5000/informacion/informacion-estudiante')
+        response.raise_for_status()
+        response_data = response.json()
+        return JsonResponse(response_data)
+    except requests.exceptions.RequestException as e:
+        return HttpResponse(str(e), status=500)
+
+def resetear_datos(request):
+    try:
+        response = requests.get('http://127.0.0.1:5000/limpiarDatos')
+        response.raise_for_status()
+        response_data = response.json()
+        return JsonResponse(response_data)
+    except requests.exceptions.RequestException as e:
+        return HttpResponse(str(e), status=500)

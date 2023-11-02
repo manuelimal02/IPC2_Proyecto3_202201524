@@ -89,7 +89,12 @@ def resumen_configuraciones():
     respuesta=manejador_sentimiento.resumen_configuracion()
     return jsonify({"message": f"{respuesta}"})
 
-@app.route('/limpiarDatos', methods=['POST'])
+@app.route('/informacion/informacion-estudiante', methods=['GET'])
+def informacion_estudiante():
+    respuesta="Carlos Manuel Lima y Lima"+"\n"+"202201524"+"\n"+"IPC2 - Segundo Semestre 20223"+"\n"+"Proyecto 3"
+    return jsonify({"message": f"{respuesta}"})
+
+@app.route('/limpiarDatos', methods=['GET'])
 def resetear_datos():
     #Lista_Mensajes
     manejador_mensaje.resetear_datos_mensaje()
@@ -98,7 +103,7 @@ def resetear_datos():
     #BBDD
     manejador_mensaje.base_datos_mensaje()
     manejador_sentimiento.base_datos_configuracion()
-    return jsonify({"message": "Datos Reseteados Correctamente."})
+    return jsonify({"message": "Resetear Datos: Datos Reseteados Correctamente."})
 
 if __name__=="__main__":
     app.run(threaded=True,port=5000,debug=True)

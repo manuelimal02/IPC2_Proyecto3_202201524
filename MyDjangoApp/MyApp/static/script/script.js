@@ -70,6 +70,18 @@ $(document).ready(function() {
         });
     });
 
+    $("#informacion_estudiante").click(function() {
+        $.get("/MyApp/informacionEstudiante", function(response) {
+            $("#mensajeTexto").val(response.message);
+        });
+    });
+
+    $("#resetear_datos").click(function() {
+        $.get("/MyApp/resetarDatos", function(response) {
+            $("#mensajeTexto").val(response.message);
+        });
+    });
+
 });
 
 $(document).ready(function() {
@@ -96,5 +108,3 @@ $(document).ready(function() {
         });
     });
 });
-
-
