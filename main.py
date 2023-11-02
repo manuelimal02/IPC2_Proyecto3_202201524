@@ -79,6 +79,16 @@ def grafica_consultar_sentimiento_mensaje():
     respuesta=manejador_sentimiento.grafica_sentimiento_mensaje(manejador_mensaje.lista_mensaje_fecha)
     return jsonify({"message": f"{respuesta}"})
 
+@app.route('/resumen/resumen-mensajes', methods=['GET'])
+def resumen_mensajes():
+    respuesta=manejador_mensaje.resumen_mensaje()
+    return jsonify({"message": f"{respuesta}"})
+
+@app.route('/resumen/resumen-configuraciones', methods=['GET'])
+def resumen_configuraciones():
+    respuesta=manejador_sentimiento.resumen_configuracion()
+    return jsonify({"message": f"{respuesta}"})
+
 @app.route('/limpiarDatos', methods=['POST'])
 def resetear_datos():
     #Lista_Mensajes

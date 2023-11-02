@@ -165,6 +165,42 @@ class MensajeDAO:
         arbol_xml=ET.ElementTree(mensajes_generales)
         arbol_xml.write("BBDD/Base-Datos-Mensaje.xml",encoding="UTF-8",xml_declaration=True)
 
+    def resumen_mensaje(self):
+        if len(self.lista_mensaje_fecha)==0:
+            return "Resumen Mensaje: No existen archivos de mensaje procesados."
+        mensajes_generales = ET.Element("Mensaje")
+        lista_hashtag=[]
+        lista_usuario=[]
+        for fecha in self.lista_mensaje_fecha:
+            tiempo = ET.SubElement(mensajes_generales, "Tiempo")
+            fecha_ms = ET.SubElement(tiempo, "Fecha")
+            fecha_ms.text = fecha.fecha
+            for mensaje in fecha.lista_mensaje:
+                for hashtag in mensaje.hashtag:
+                    lista_hashtag.append(hashtag)
+            consultar_hashtag=contador_variable(lista_hashtag)
+            for mensaje in fecha.lista_mensaje:
+                for usuario in mensaje.usuario:
+                    lista_usuario.append(usuario)
+            consultar_menciones=contador_variable(lista_usuario)
+            ms_recibido = ET.SubElement(tiempo, "Mensajes-Recibios")
+            ms_recibido.text = str(len(fecha.lista_mensaje))
+
+            us_mencionado = ET.SubElement(tiempo, "Usuarios-Mencionados")
+            us_mencionado.text = str(len(consultar_menciones))
+
+            hs_mencionado = ET.SubElement(tiempo, "Hashtag-Incluidos")
+            hs_mencionado.text = str(len(consultar_hashtag))
+
+            lista_hashtag.clear()
+            lista_usuario.clear()
+        datos=ET.tostring(mensajes_generales)
+        datos=str(datos)
+        self.xml_identado(mensajes_generales)
+        arbol_xml=ET.ElementTree(mensajes_generales)
+        arbol_xml.write("Resumen/resumenMensajes.xml",encoding="UTF-8",xml_declaration=True)
+        return "Archivo Resumen Mensajes Generado Correctamente."
+
     def xml_identado(self, element, indent='  '):
         queue = [(0, element)]
         while queue:

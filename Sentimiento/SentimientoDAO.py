@@ -186,6 +186,32 @@ class SentimientoDAO:
         arbol_xml=ET.ElementTree(sentimiento)
         arbol_xml.write("BBDD/Base-Datos-Configuraciones.xml",encoding="UTF-8",xml_declaration=True)
 
+    def resumen_configuracion(self):
+        if len(self.lista_sentimiento_negativo)==0 or len(self.lista_sentimiento_positivo)==0:
+            return "Resumen Configuraciones: No existen archivos de configuraciones procesados."
+            
+        sentimiento = ET.Element("Configuraciones-Recibida")
+
+        palabra_pos = ET.SubElement(sentimiento, "Palabras-Positivas")
+        palabra_pos.text = str(len(self.lista_sentimiento_positivo))
+
+        palabra_pos_rech = ET.SubElement(sentimiento, "Palabras-Positivas-Rechazadas")
+        palabra_pos_rech.text = str(len(self.lista_sentimiento_positivo_rechazado))
+
+        palabra_neg = ET.SubElement(sentimiento, "Palabras-Negativas")
+        palabra_neg.text=str(len(self.lista_sentimiento_negativo))
+
+        palabra_neg_rech = ET.SubElement(sentimiento, "Palabras-Negativas-Rechazadas")
+        palabra_neg_rech.text=str(len(self.lista_sentimiento_negativo_rechazado))
+
+        datos=ET.tostring(sentimiento)
+        datos=str(datos)
+        self.xml_identado(sentimiento)
+        arbol_xml=ET.ElementTree(sentimiento)
+        arbol_xml.write("Resumen/resumenConfiguraciones.xml",encoding="UTF-8",xml_declaration=True)
+        return "Archivo Resumen Sentimientos Generado Correctamente."
+
+
     def xml_identado(self, element, indent='  '):
         queue = [(0, element)]
         while queue:

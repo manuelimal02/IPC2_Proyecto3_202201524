@@ -58,6 +58,18 @@ $(document).ready(function() {
         });
     });
 
+    $("#resumen_mensajes").click(function() {
+        $.get("/MyApp/resumenMensajes", function(response) {
+            $("#mensajeTexto").val(response.message);
+        });
+    });
+
+    $("#resumen_configuraciones").click(function() {
+        $.get("/MyApp/resumenConfiguraciones", function(response) {
+            $("#mensajeTexto").val(response.message);
+        });
+    });
+
 });
 
 $(document).ready(function() {

@@ -58,3 +58,21 @@ def grafica_sentimiento(request):
         return JsonResponse(response_data)
     except requests.exceptions.RequestException as e:
         return HttpResponse(str(e), status=500)
+    
+def resumen_mensajes(request):
+    try:
+        response = requests.get('http://127.0.0.1:5000/resumen/resumen-mensajes')
+        response.raise_for_status()
+        response_data = response.json()
+        return JsonResponse(response_data)
+    except requests.exceptions.RequestException as e:
+        return HttpResponse(str(e), status=500)
+
+def resumen_configuraciones(request):
+    try:
+        response = requests.get('http://127.0.0.1:5000/resumen/resumen-configuraciones')
+        response.raise_for_status()
+        response_data = response.json()
+        return JsonResponse(response_data)
+    except requests.exceptions.RequestException as e:
+        return HttpResponse(str(e), status=500)

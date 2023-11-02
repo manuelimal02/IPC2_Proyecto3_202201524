@@ -8,5 +8,7 @@ urlpatterns=[
     path('consultaSentimiento/',views.consulta_sentimiento, name='consultaSentimiento'),
     path('graficaHashtag/',views.grafica_hashtag, name='graficaHashtag'),
     path('graficaMenciones/',views.grafica_menciones, name='graficaMenciones'),
-    path('graficaSentimiento/',views.grafica_sentimiento, name='graficaSentimiento')
+    path('graficaSentimiento/',views.grafica_sentimiento, name='graficaSentimiento'),
+    path('resumenMensajes/',views.resumen_mensajes, name='resumenMensajes'),
+    path('resumenConfiguraciones/',views.resumen_configuraciones, name='resumenConfiguraciones')
 ]
