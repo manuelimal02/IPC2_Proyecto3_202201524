@@ -116,7 +116,7 @@ class SentimientoDAO:
         nombre_archivo = "Graficas/Grafica_Sentimiento_Mensaje"
         f = open(nombre_archivo+'.dot','w')
         texto_g = """
-            graph "" {bgcolor="#f2f2f2" gradientangle=90 label="Grafica Sentimiento Mensaje"
+            graph "" {bgcolor="#f2f2f2" gradientangle=90 label="Grafica Sentimiento Mensaje - 202201524 - Carlos Manuel Lima y Lima"
                 fontname="Helvetica,Arial,sans-serif"
                 node [fontname="Helvetica,Arial,sans-serif"]
                 edge [fontname="Helvetica,Arial,sans-serif"]"""
@@ -127,7 +127,7 @@ class SentimientoDAO:
             texto_g+= """subgraph cluster0"""+str(contador_subgrafo)+"""{label="""+f'"'+fecha_mensaje+f'"'+""" style="filled" gradientangle="270"\n"""
             contador_actual=contador_nodo
             contador_nodo+=1
-            texto_g += """n00"""+str(contador_actual)+"""[fillcolor="#d43440", style=filled, shape=doublecircle, label="""+f'"'+fecha.fecha+f'"'+"""];\n"""
+            texto_g += """n00"""+str(contador_actual)+"""[fillcolor="#d43440", style=filled, shape=component, label="""+f'"'+fecha.fecha+f'"'+"""];\n"""
             for mensaje in fecha.lista_mensaje:
                 positivo, negativo = contar_sentimientos(mensaje.texto_mensaje, self.lista_sentimiento_positivo, self.lista_sentimiento_negativo)
                 if positivo>negativo:
@@ -136,13 +136,13 @@ class SentimientoDAO:
                     contador_mensaje_negativo+=1
                 else:
                     contador_mensaje_neutro+=1
-            texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=circle, label="""+f'"'+f"Mensajes Con Sentimientos Positivos: "+str(contador_mensaje_positivo)+f'"'+"""];\n"""
+            texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=rectangle, label="""+f'"'+f"Mensajes Con Sentimientos Positivos: "+str(contador_mensaje_positivo)+f'"'+"""];\n"""
             texto_g += """n00"""+str(contador_actual)+ """--"""+ """n00"""+str(contador_nodo)+""" ;\n"""
             contador_nodo+=1
-            texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=circle, label="""+f'"'+f"Mensajes Con Sentimientos Negativos: "+str(contador_mensaje_negativo)+f'"'+"""];\n"""
+            texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=rectangle, label="""+f'"'+f"Mensajes Con Sentimientos Negativos: "+str(contador_mensaje_negativo)+f'"'+"""];\n"""
             texto_g += """n00"""+str(contador_actual)+ """--"""+ """n00"""+str(contador_nodo)+""" ;\n"""
             contador_nodo+=1
-            texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=circle, label="""+f'"'+f"Mensajes Con Sentimientos Neutros: "+str(contador_mensaje_neutro)+f'"'+"""];\n"""
+            texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=rectangle, label="""+f'"'+f"Mensajes Con Sentimientos Neutros: "+str(contador_mensaje_neutro)+f'"'+"""];\n"""
             texto_g += """n00"""+str(contador_actual)+ """--"""+ """n00"""+str(contador_nodo)+""" ;\n"""
             texto_g += """\n}\n"""
             contador_mensaje_positivo=0

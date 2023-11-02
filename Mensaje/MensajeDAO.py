@@ -64,7 +64,7 @@ class MensajeDAO:
         nombre_archivo = "Graficas/Grafica_Hasthtag"
         f = open(nombre_archivo+'.dot','w')
         texto_g = """
-            graph "" {bgcolor="#f2f2f2" gradientangle=90 label="Grafica Hashtag"
+            graph "" {bgcolor="#f2f2f2" gradientangle=90 label="Grafica Hashtag - 202201524 - Carlos Manuel Lima y Lima"
                 fontname="Helvetica,Arial,sans-serif"
                 node [fontname="Helvetica,Arial,sans-serif"]
                 edge [fontname="Helvetica,Arial,sans-serif"]"""
@@ -75,13 +75,13 @@ class MensajeDAO:
             texto_g+= """subgraph cluster0"""+str(contador_subgrafo)+"""{label="""+f'"'+fecha_mensaje+f'"'+""" style="filled" gradientangle="270"\n"""
             contador_actual=contador_nodo
             contador_nodo+=1
-            texto_g += """n00"""+str(contador_actual)+"""[fillcolor="#d43440", style=filled, shape=doublecircle, label="""+f'"'+fecha.fecha+f'"'+"""];\n"""
+            texto_g += """n00"""+str(contador_actual)+"""[fillcolor="#d43440", style=filled, shape=component, label="""+f'"'+fecha.fecha+f'"'+"""];\n"""
             for mensaje in fecha.lista_mensaje:
                 for hashtag in mensaje.hashtag:
                     lista_hashtag.append(hashtag)
             consultar_hashtag=contador_variable(lista_hashtag)
             for hashtag, cuenta in consultar_hashtag.items():
-                texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=circle, label="""+f'"'+f"#{hashtag}#: {cuenta} mensajes."+f'"'+"""];\n"""
+                texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=rectangle, label="""+f'"'+f"#{hashtag}#: {cuenta} mensajes."+f'"'+"""];\n"""
                 texto_g += """n00"""+str(contador_actual)+ """--"""+ """n00"""+str(contador_nodo)+""" ;\n"""
                 contador_nodo+=1
             lista_hashtag.clear()
@@ -119,7 +119,7 @@ class MensajeDAO:
         nombre_archivo = "Graficas/Grafica_Menciones"
         f = open(nombre_archivo+'.dot','w')
         texto_g = """
-            graph "" {bgcolor="#f2f2f2" gradientangle=90 label="Grafica Menciones"
+            graph "" {bgcolor="#f2f2f2" gradientangle=90 label="Grafica Menciones - 202201524 - Carlos Manuel Lima y Lima"
                 fontname="Helvetica,Arial,sans-serif"
                 node [fontname="Helvetica,Arial,sans-serif"]
                 edge [fontname="Helvetica,Arial,sans-serif"]"""
@@ -130,13 +130,13 @@ class MensajeDAO:
             texto_g+= """subgraph cluster0"""+str(contador_subgrafo)+"""{label="""+f'"'+fecha_mensaje+f'"'+""" style="filled" gradientangle="270"\n"""
             contador_actual=contador_nodo
             contador_nodo+=1
-            texto_g += """n00"""+str(contador_actual)+"""[fillcolor="#d43440", style=filled, shape=doublecircle, label="""+f'"'+fecha.fecha+f'"'+"""];\n"""
+            texto_g += """n00"""+str(contador_actual)+"""[fillcolor="#d43440", style=filled, shape=component, label="""+f'"'+fecha.fecha+f'"'+"""];\n"""
             for mensaje in fecha.lista_mensaje:
                 for usuario in mensaje.usuario:
                     lista_usuario.append(usuario)
             consultar_menciones=contador_variable(lista_usuario)
             for usuario, cuenta in consultar_menciones.items():
-                texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=circle, label="""+f'"'+f"@{usuario}: {cuenta} mensajes."+f'"'+"""];\n"""
+                texto_g += """n00"""+str(contador_nodo)+""" [fillcolor="#65babf", style=filled, shape=rectangle, label="""+f'"'+f"@{usuario}: {cuenta} mensajes."+f'"'+"""];\n"""
                 texto_g += """n00"""+str(contador_actual)+ """--"""+ """n00"""+str(contador_nodo)+""" ;\n"""
                 contador_nodo+=1
             lista_usuario.clear()

@@ -103,6 +103,9 @@ def resetear_datos():
     #BBDD
     manejador_mensaje.base_datos_mensaje()
     manejador_sentimiento.base_datos_configuracion()
+    #Comprobacion
+    manejador_mensaje.imprimir_mensaje()
+    manejador_sentimiento.imprimir_sentimiento()
     return jsonify({"message": "Resetear Datos: Datos Reseteados Correctamente."})
 
 if __name__=="__main__":
